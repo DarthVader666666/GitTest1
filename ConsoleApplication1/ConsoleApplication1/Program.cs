@@ -10,8 +10,7 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            // Added something AGAIN
-            // ADASDASD 
+            // Added Feature 2
         }
     }
 }
