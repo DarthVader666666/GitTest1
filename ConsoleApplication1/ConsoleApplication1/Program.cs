@@ -11,23 +11,6 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             // Didn't Add Feature3
-            // Added Feature3
-            // ADASDASD 
-            // ADASDASD 
-            // ADASDASD 
-            // ADASDASD 
-            // ADASDASD 
-            // ADASDASD 
-            // ADASDASD 
-            // ADASDASD 
-            // ADASDASD 
-            // ADASDASD 
-            // ADASDASD 
-            // ADASDASD 
-            // ADASDASD 
-            // ADASDASD 
-            // ADASDASD 
-            // ADASDASD 
         }
     }
 }
