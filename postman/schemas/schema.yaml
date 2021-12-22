@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   version: '1.0'
-  title: 'GOGOGOG'  
+  title: 'TestAPI'  
 servers:
   - url: 'localhost:3000'
 paths:
@@ -21,7 +21,7 @@ paths:
             format: int32
       responses:
         '200':
-          description: 'Sample response: Details about a user by ID'
+          description: 'LOL'
           headers:
             x-next:
               description: A link to the next page of responses
