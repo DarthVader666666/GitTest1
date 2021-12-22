@@ -1,8 +1,7 @@
 openapi: 3.0.0
 info:
   version: '1.0'
-  title: 'TestAPI'
-  description: 'Fuck You'
+  title: 'TestAPI'  
 servers:
   - url: 'localhost:3000'
 paths:
@@ -15,7 +14,7 @@ paths:
       parameters:
         - name: id
           in: query
-          description: ID of the user
+          description: Fuck You
           required: true
           schema:
             type: integer
