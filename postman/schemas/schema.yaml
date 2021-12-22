@@ -14,7 +14,7 @@ paths:
       parameters:
         - name: id
           in: query
-          description: Fuck You
+          description: ID of the user
           required: true
           schema:
             type: integer
