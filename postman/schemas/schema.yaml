@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   version: '1.0'
   title: 'TestAPI'  
-  description: 'Additional description'
+  description: 'Additional description. Helllloioooo~!!!!!'
 servers:
   - url: 'localhost:3000'
 paths:
