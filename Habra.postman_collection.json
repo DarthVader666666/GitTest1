@@ -1,0 +1,267 @@
+{
+	"info": {
+		"_postman_id": "c5b758a0-f579-4133-b7c5-07cdfccef736",
+		"name": "Habra",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get user id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"try\r",
+							"{\r",
+							"    pm.environment.set(\"userId\", pm.response.json().args.userId);\r",
+							"    pm.environment.set(\"name\", pm.response.json().args.userName);\r",
+							"    console.log(\"newUserId: \", pm.environment.get(\"userId\"));\r",
+							"}\r",
+							"catch(e)\r",
+							"{\r",
+							"    console.log(e);\r",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://postman-echo.com/get?userId={{newUserId}}",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "{{newUserId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update username",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"userId from env is equal to userId from response\", function()\r",
+							"{\r",
+							"    pm.expect(parseInt(pm.environment.get(\"userId\"))).to.equal(pm.response.json().data.userId);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{ \"userId\": {{userId}}, \"username\": \"Bob\" }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://postman-echo.com/post",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TinyValidator",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var profile = pm.response.json().data.profile;\r",
+							"\r",
+							"var scheme =\r",
+							"{\r",
+							"    \"type\": \"object\",\r",
+							"    \"required\":[\"userId\", \"username\"],\r",
+							"    \"properties\":\r",
+							"    {\r",
+							"        \"userId\":{\"type\":\"integer\"},\r",
+							"        \"username\":{\"type\":\"string\"},\r",
+							"        \"age\":{\"type\":\"integer\"},\r",
+							"        \"scores\": {\"type\":\"array\",\"items\":{\"type\":\"integer\"}},\r",
+							"        \"rating\":{\"min\":{\"type\":\"integer\"}, \"max\":{\"type\":\"integer\"}}\r",
+							"    }\r",
+							"}\r",
+							"\r",
+							"pm.test('Scema is valid', function()\r",
+							"{\r",
+							"    var isValidScheme = tv4.validate(profile, scheme, true, true);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"profile\" : \r\n    {\r\n        \"userId\": {{userId}},\r\n        \"username\": \"Bob\",\r\n        \"scores\": [1, 2, 3, 4, 5],\r\n        \"age\": 21,\r\n        \"rating\": {\"min\": 20, \"max\": 100}\r\n    }\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://postman-echo.com/post",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"post"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// pm.sendRequest(\"https://postman-echo.com/get\", function(err,res)\r",
+							"// {\r",
+							"//     console.log(err);\r",
+							"//     console.log(res);\r",
+							"// });\r",
+							"\r",
+							"let dat = \r",
+							"{\r",
+							"    url: \"https://postman-echo.com/post\",\r",
+							"    method: \"POST\",\r",
+							"    body: {mode: \"raw\", raw: JSON.stringify({key: \"userId\"})}\r",
+							"};\r",
+							"\r",
+							"pm.sendRequest(dat, function(err,res)\r",
+							"{\r",
+							"    console.log(err);\r",
+							"    console.log(res);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.environment.set(\"json_body\", pm.response.json());\r",
+							"pm.response.text();\r",
+							"console.log(JSON.stringify(pm.environment.get(\"json_body\")));\r",
+							"\r",
+							"var js = require(\"xml2js\");\r",
+							"js.parseString(\"<root>Hello xml to js!</root>\", function(err,res)\r",
+							"{\r",
+							"    console.log(res);\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://postman-echo.com/get?json_body",
+					"protocol": "https",
+					"host": [
+						"postman-echo",
+						"com"
+					],
+					"path": [
+						"get"
+					],
+					"query": [
+						{
+							"key": "json_body",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"postman.setNextRequest(\"TinyValidator\");",
+					"postman.setNextRequest(\"Update username\");",
+					"postman.setNextRequest(\"Get user id\");",
+					"postman.setNextRequest(null);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status is ok, response is json\", function()",
+					"{",
+					"    pm.response.to.be.ok;",
+					"    pm.response.to.be.json;",
+					"});"
+				]
+			}
+		}
+	]
+}
