@@ -1,0 +1,17 @@
+{
+  {
+    "persons":
+    [
+      {
+       "id": 1,
+       "name":"Vadim",
+       "age": 37
+      },
+      {
+       "id": 2,
+       "name":"Vladimir",
+       "age": 32
+      }
+    ]
+  }    
+}
